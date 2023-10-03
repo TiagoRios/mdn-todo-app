@@ -3,7 +3,7 @@ import Todo from "../components/Todo";
 
 import { FILTER_MAP } from "../util/filterMap";
 
-export default function TaskList({ tasks, filter, toggleTaskCompleted, deleteTask, editTask }) {
+export default function TodoList({ tasks, filter, toggleTaskCompleted, deleteTask, editTask }) {
     return (
         <ul
             className="todo-list stack-large stack-exception"

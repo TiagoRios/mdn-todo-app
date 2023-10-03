@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import Form from "./containers/Form";
-import TaskList from "./containers/TodoList";
+import TodoList from "./containers/TodoList";
 import usePrevious from "./hooks/customHooks";
 import HeadingTasks from "./components/HeadingTasks";
 import FilterButtonList from "./containers/FilterButtonList";
@@ -67,7 +67,7 @@ export default function App(props) {
         filter={filter}
         listHeadingRef={listHeadingRef} />
 
-      <TaskList
+      <TodoList
         tasks={tasks}
         filter={filter}
         toggleTaskCompleted={toggleTaskCompleted}
