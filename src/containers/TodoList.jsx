@@ -1,6 +1,7 @@
 import React from "react";
 import Todo from "../components/Todo";
-import { FILTER_MAP } from "../App";
+
+import { FILTER_MAP } from "../util/filterMap";
 
 export default function TaskList({ tasks, filter, toggleTaskCompleted, deleteTask, editTask }) {
     return (
