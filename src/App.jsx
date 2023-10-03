@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
-import Todo from "./components/Todo";
 import { nanoid } from "nanoid";
+import TaskList from "./containers/TaskList";
 
 function usePrevious(value) {
   const ref = useRef();
@@ -12,7 +12,7 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const FILTER_MAP = {
+export const FILTER_MAP = {
   All: () => true,
   Active: (task) => !task.completed,
   Completed: (task) => task.completed,
@@ -54,20 +54,6 @@ function App(props) {
     setTasks(editedTaskList);
   }
 
-  const taskList = tasks
-    .filter(FILTER_MAP[filter])
-    .map((task) => (
-      <Todo
-        id={task.id}
-        name={task.name}
-        completed={task.completed}
-        key={task.id}
-        toggleTaskCompleted={toggleTaskCompleted}
-        deleteTask={deleteTask}
-        editTask={editTask}
-      />
-    ));
-
   const filterList = FILTER_NAMES.map((name) => (
     <FilterButton
       key={name}
@@ -82,6 +68,8 @@ function App(props) {
     setTasks([...tasks, newTask]);
   }
 
+
+  const taskList = tasks.filter(FILTER_MAP[filter])
   const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
   const headingText = `${taskList.length} ${tasksNoun} remaining`;
 
@@ -98,14 +86,16 @@ function App(props) {
     <div className="todoapp stack-large">
       <Form addTask={addTask} />
       <div className="filters btn-group stack-exception">{filterList}</div>
-      <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>
-        {headingText}
-      </h2>
-      <ul
-        className="todo-list stack-large stack-exception"
-        aria-labelledby="list-heading">
-        {taskList}
-      </ul>
+
+      <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>{headingText}</h2>
+
+      <TaskList
+        tasks={tasks}
+        filter={filter}
+        toggleTaskCompleted={toggleTaskCompleted}
+        deleteTask={deleteTask}
+        editTask={editTask}
+      />
     </div>
   );
 }
