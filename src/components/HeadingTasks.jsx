@@ -1,14 +1,17 @@
-import { FILTER_MAP } from "../util/filterMap";
+import React from 'react';
 
-export default function HeadingTasks({ tasks, filter, listHeadingRef }) {
+import FILTER_MAP from '../util/filterMap';
 
-    const taskList = tasks.filter(FILTER_MAP[filter])
-    const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
-    const headingText = `${taskList.length} ${tasksNoun} remaining`;
+function HeadingTasks({ filter, listHeadingRef, tasks }) {
+  const taskList = tasks.filter(FILTER_MAP[filter]);
+  const tasksNoun = taskList.length !== 1 ? 'tasks' : 'task';
+  const headingText = `${taskList.length} ${tasksNoun} remaining`;
 
-    return (
-        <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>
-            {headingText}
-        </h2>
-    )
+  return (
+    <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>
+      {headingText}
+    </h2>
+  );
 }
+
+export default HeadingTasks;

@@ -1,79 +1,92 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from 'react';
+import { nanoid } from 'nanoid';
 
-import Form from "./containers/Form";
-import TodoList from "./containers/TodoList";
-import usePrevious from "./hooks/customHooks";
-import HeadingTasks from "./components/HeadingTasks";
-import FilterButtonList from "./containers/FilterButtonList";
+import FilterButtonList from './containers/FilterButtonList';
+import Form from './containers/Form';
+import HeadingTasks from './components/HeadingTasks';
+import TodoList from './containers/TodoList';
+import usePrevious from './hooks/customHooks';
 
-import { nanoid } from "nanoid";
-
-export default function App(props) {
-  const [tasks, setTasks] = useState(props.tasks);
-  const [filter, setFilter] = useState("All");
+function App({ tasks }) {
+  const [taskList, setTaskList] = useState(tasks);
+  const [filter, setFilter] = useState('All');
 
   const listHeadingRef = useRef(null);
-  const prevTaskLength = usePrevious(tasks.length);
+  const prevTaskLength = usePrevious(taskList.length);
 
   useEffect(() => {
-    if (tasks.length - prevTaskLength === -1) {
+    if (taskList.length - prevTaskLength === -1) {
       listHeadingRef.current.focus();
     }
-  }, [tasks.length, prevTaskLength]);
+  }, [taskList.length, prevTaskLength]);
 
   function toggleTaskCompleted(id) {
-    const updatedTasks = tasks.map((task) => {
-      // if this task has the same ID as the edited task
+    const updatedTasks = taskList.map((task) => {
       if (id === task.id) {
-        // use object spread to make a new obkect
-        // whose `completed` prop has been inverted
         return { ...task, completed: !task.completed };
       }
+
       return task;
     });
-    setTasks(updatedTasks);
+
+    setTaskList(updatedTasks);
   }
 
   function deleteTask(id) {
-    const remainingTasks = tasks.filter((task) => id !== task.id);
-    setTasks(remainingTasks);
+    const remainingTasks = taskList.filter((task) => id !== task.id);
+
+    setTaskList(remainingTasks);
   }
 
   function editTask(id, newName) {
-    const editedTaskList = tasks.map((task) => {
-      // if this task has the same ID as the edited task
+    const editedTaskList = taskList.map((task) => {
       if (id === task.id) {
-        //
         return { ...task, name: newName };
       }
+
       return task;
     });
-    setTasks(editedTaskList);
+
+    setTaskList(editedTaskList);
   }
 
   function addTask(name) {
-    const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
-    setTasks([...tasks, newTask]);
+    const newTask = {
+      id: `todo-${nanoid()}`,
+      name,
+      completed: false,
+    };
+
+    setTaskList([...taskList, newTask]);
   }
 
   return (
     <div className="todoapp stack-large">
-      <Form addTask={addTask} />
+      <Form
+        addTask={addTask}
+      />
 
-      <FilterButtonList filter={filter} setFilter={setFilter} />
+      <FilterButtonList
+        filter={filter}
+        setFilter={setFilter}
+      />
 
       <HeadingTasks
-        tasks={tasks}
         filter={filter}
-        listHeadingRef={listHeadingRef} />
+        listHeadingRef={listHeadingRef}
+        tasks={taskList}
+      />
 
       <TodoList
-        tasks={tasks}
-        filter={filter}
-        toggleTaskCompleted={toggleTaskCompleted}
         deleteTask={deleteTask}
-        editTask={editTask} />
+        editTask={editTask}
+        filter={filter}
+        tasks={taskList}
+        toggleTaskCompleted={toggleTaskCompleted}
+      />
 
     </div>
   );
 }
+
+export default App;

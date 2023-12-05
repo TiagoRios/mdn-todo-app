@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-function FilterButton({ name, isPressed, setFilter }) {
+function FilterButton({ isPressed, name, setFilter }) {
   return (
     <button
-      type="button"
-      className="btn toggle-btn"
       aria-pressed={isPressed}
+      className="btn toggle-btn"
       onClick={() => setFilter(name)}
+      type="button"
     >
       <span className="visually-hidden">Show </span>
       <span>{name}</span>

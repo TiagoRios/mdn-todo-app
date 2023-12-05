@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-function Form({addTask}) {
+function Form({ addTask }) {
   const [name, setName] = useState('');
 
   function handleSubmit(e) {
@@ -11,7 +11,7 @@ function Form({addTask}) {
     }
 
     addTask(name);
-    setName("");
+    setName('');
   }
 
   function handleChange(e) {
@@ -21,20 +21,21 @@ function Form({addTask}) {
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="label-wrapper">
-        <label htmlFor="new-todo-input" className="label__lg">
+        <span className="label__lg" htmlFor="new-todo-input">
           What needs to be done?
-        </label>
+        </span>
       </h2>
 
       <input
-        id="new-todo-input"
-        type="text"
-        name="new-todo-input"
-        className="input input__lg"
         autoComplete="off"
-        value={name}
+        className="input input__lg"
+        id="new-todo-input"
+        name="new-todo-input"
         onChange={handleChange}
+        type="text"
+        value={name}
       />
+
       <button type="submit" className="btn btn__primary btn__lg">
         Add
       </button>

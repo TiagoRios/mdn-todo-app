@@ -1,28 +1,35 @@
-import React from "react";
-import Todo from "../components/Todo";
+import React from 'react';
 
-import { FILTER_MAP } from "../util/filterMap";
+import FILTER_MAP from '../util/filterMap';
+import Todo from '../components/Todo';
 
-export default function TodoList({ tasks, filter, toggleTaskCompleted, deleteTask, editTask }) {
-    return (
-        <ul
-            className="todo-list stack-large stack-exception"
-            aria-labelledby="list-heading">
-            {
-                tasks
-                    .filter(FILTER_MAP[filter])
-                    .map((task) => (
-                        <Todo
-                            id={task.id}
-                            name={task.name}
-                            completed={task.completed}
-                            key={task.id}
-                            toggleTaskCompleted={toggleTaskCompleted}
-                            deleteTask={deleteTask}
-                            editTask={editTask}
-                        />
-                    ))
-            }
-        </ul>
-    )
+function TodoList({
+  deleteTask,
+  editTask,
+  filter,
+  tasks,
+  toggleTaskCompleted,
+}) {
+  return (
+    <ul
+      className="todo-list stack-large stack-exception"
+      aria-labelledby="list-heading"
+    >
+      { tasks
+        .filter(FILTER_MAP[filter])
+        .map((task) => (
+          <Todo
+            completed={task.completed}
+            deleteTask={deleteTask}
+            editTask={editTask}
+            id={task.id}
+            key={task.id}
+            name={task.name}
+            toggleTaskCompleted={toggleTaskCompleted}
+          />
+        )) }
+    </ul>
+  );
 }
+
+export default TodoList;
