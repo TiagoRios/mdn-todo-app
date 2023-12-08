@@ -37,8 +37,8 @@ const tarefaSlice = createSlice({
 
     toggleTarefaCompleta: (state, action) => {
       const index = state.findIndex((todo) => todo.id === action.payload.id);
-      // eslint-disable-next-line no-param-reassign
-      state[index].completed = action.payload.completed;
+      const a = { ...state[index], completed: action.payload.completed };
+      state.splice(index, 1, a);
     },
   },
 });
