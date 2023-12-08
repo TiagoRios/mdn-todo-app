@@ -10,7 +10,6 @@ import usePrevious from './hooks/customHooks';
 
 function App() {
   const taskList = useSelector((state) => state.tarefas);
-  const [filter, setFilter] = useState('All');
 
   const listHeadingRef = useRef(null);
   const prevTaskLength = usePrevious(taskList.length);
@@ -25,20 +24,11 @@ function App() {
     <div className="todoapp stack-large">
       <Form />
 
-      <FilterButtonList
-        filter={filter}
-        setFilter={setFilter}
-      />
+      <FilterButtonList />
 
-      <HeadingTasks
-        filter={filter}
-        listHeadingRef={listHeadingRef}
-      />
+      <HeadingTasks listHeadingRef={listHeadingRef} />
 
-      <TodoList
-        filter={filter}
-      />
-
+      <TodoList />
     </div>
   );
 }

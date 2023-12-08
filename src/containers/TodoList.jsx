@@ -5,8 +5,9 @@ import FILTER_MAP from '../util/filterMap';
 import Todo from '../components/Todo';
 
 // chamaria o filter do store
-function TodoList({ filter }) {
-  const tasks = useSelector((myStateStore) => myStateStore.tarefas);
+function TodoList() {
+  const filter = useSelector((state) => state.filtro.name);
+  const tasks = useSelector((state) => state.tarefas);
 
   return (
     <ul

@@ -1,11 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-function FilterButton({ isPressed, name, setFilter }) {
+import { toggleFiltro } from '../redux/filtroSlice';
+
+function FilterButton({ isPressed, name }) {
+  const myDispatch = useDispatch();
+
   return (
     <button
       aria-pressed={isPressed}
       className="btn toggle-btn"
-      onClick={() => setFilter(name)}
+      onClick={() => myDispatch(toggleFiltro({ name }))}
       type="button"
     >
       <span className="visually-hidden">Show </span>
