@@ -1,15 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import FILTER_MAP from '../util/filterMap';
 import Todo from '../components/Todo';
 
-function TodoList({
-  deleteTask,
-  editTask,
-  filter,
-  tasks,
-  toggleTaskCompleted,
-}) {
+function TodoList({ filter }) {
+  const tasks = useSelector((myStateStore) => myStateStore.todooo);
+
   return (
     <ul
       className="todo-list stack-large stack-exception"
@@ -19,13 +16,8 @@ function TodoList({
         .filter(FILTER_MAP[filter])
         .map((task) => (
           <Todo
-            completed={task.completed}
-            deleteTask={deleteTask}
-            editTask={editTask}
-            id={task.id}
             key={task.id}
-            name={task.name}
-            toggleTaskCompleted={toggleTaskCompleted}
+            task={task}
           />
         )) }
     </ul>

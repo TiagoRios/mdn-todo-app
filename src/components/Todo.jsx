@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import usePrevious from '../hooks/customHooks';
 
-function Todo({
-  completed,
-  editTask,
-  deleteTask,
-  id,
-  name,
-  toggleTaskCompleted,
-}) {
+import {
+  deletarTarefa,
+  editTarefa,
+  toggleTarefaCompleta,
+} from '../redux/todoSlice';
+
+function Todo({ task }) {
+  const myDispatch = useDispatch();
   const [newName, setNewName] = useState('');
   const [isEditing, setEditing] = useState(false);
 
@@ -37,7 +38,7 @@ function Todo({
       return;
     }
 
-    editTask(id, newName);
+    myDispatch(editTarefa({ id: task.id, name: newName }));
 
     setNewName('');
     setEditing(false);
@@ -46,15 +47,15 @@ function Todo({
   const editingTemplate = (
     <form className="stack-small" onSubmit={handleSubmit}>
       <div className="form-group">
-        <label className="todo-label" htmlFor={id}>
+        <label className="todo-label" htmlFor={task.id}>
           New name for
           {' '}
-          {name}
+          {task.name}
         </label>
 
         <input
           className="todo-text"
-          id={id}
+          id={task.id}
           onChange={handleChange}
           ref={editFieldRef}
           type="text"
@@ -72,7 +73,7 @@ function Todo({
           <span className="visually-hidden">
             renaming
             {' '}
-            {name}
+            {task.name}
           </span>
         </button>
 
@@ -81,7 +82,7 @@ function Todo({
           <span className="visually-hidden">
             new name for
             {' '}
-            {name}
+            {task.name}
           </span>
         </button>
       </div>
@@ -92,13 +93,15 @@ function Todo({
     <div className="stack-small">
       <div className="c-cb">
         <input
-          defaultChecked={completed}
-          id={id}
-          onChange={() => toggleTaskCompleted(id)}
+          defaultChecked={task.completed}
+          id={task.id}
+          onChange={() => myDispatch(toggleTarefaCompleta(
+            { id: task.id, completed: !task.completed },
+          ))}
           type="checkbox"
         />
-        <label className="todo-label" htmlFor={id}>
-          {name}
+        <label className="todo-label" htmlFor={task.id}>
+          {task.name}
         </label>
       </div>
       <div className="btn-group">
@@ -110,17 +113,17 @@ function Todo({
         >
           Edit
           {' '}
-          <span className="visually-hidden">{name}</span>
+          <span className="visually-hidden">{task.name}</span>
         </button>
 
         <button
           type="button"
           className="btn btn__danger"
-          onClick={() => deleteTask(id)}
+          onClick={() => myDispatch(deletarTarefa({ id: task.id }))}
         >
           Delete
           {' '}
-          <span className="visually-hidden">{name}</span>
+          <span className="visually-hidden">{task.name}</span>
         </button>
       </div>
     </div>

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-function Form({ addTask }) {
+import { addTarefa } from '../redux/todoSlice';
+
+function Form() {
   const [name, setName] = useState('');
+  const myDispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -10,7 +14,7 @@ function Form({ addTask }) {
       return;
     }
 
-    addTask(name);
+    myDispatch(addTarefa({ name }));
     setName('');
   }
 
