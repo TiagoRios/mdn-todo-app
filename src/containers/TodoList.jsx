@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import FILTER_MAP from '../util/filterMap';
 import Todo from '../components/Todo';
 
+// chamaria o filter do store
 function TodoList({ filter }) {
-  const tasks = useSelector((myStateStore) => myStateStore.todooo);
+  const tasks = useSelector((myStateStore) => myStateStore.tarefas);
 
   return (
     <ul

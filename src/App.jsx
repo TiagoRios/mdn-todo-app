@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
-
 import { useSelector } from 'react-redux';
 
 import FilterButtonList from './containers/FilterButtonList';
@@ -10,7 +9,7 @@ import TodoList from './containers/TodoList';
 import usePrevious from './hooks/customHooks';
 
 function App() {
-  const taskList = useSelector((state) => state.todooo);
+  const taskList = useSelector((state) => state.tarefas);
   const [filter, setFilter] = useState('All');
 
   const listHeadingRef = useRef(null);

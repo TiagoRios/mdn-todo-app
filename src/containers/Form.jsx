@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addTarefa } from '../redux/todoSlice';
+import { addTarefa } from '../redux/tarefaSlice';
 
 function Form() {
   const [name, setName] = useState('');

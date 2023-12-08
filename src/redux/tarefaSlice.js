@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 
-const todoSlice = createSlice({
+const tarefaSlice = createSlice({
   name: 'tarefas',
 
   initialState: [
@@ -21,7 +21,7 @@ const todoSlice = createSlice({
       state.push(todo);
     },
 
-    deletarTarefa: (state, action) => state.filter((todo) => todo.id !== action.payload.id),
+    deleteTarefa: (state, action) => state.filter((todo) => todo.id !== action.payload.id),
 
     editTarefa: (state, action) => {
       const editedTarefa = state.map((todo) => {
@@ -35,18 +35,6 @@ const todoSlice = createSlice({
       return editedTarefa;
     },
 
-    // function editTask(id, newName) {
-    //   const editedTaskList = taskList.map((task) => {
-    //     if (id === task.id) {
-    //       return { ...task, name: newName };
-    //     }
-
-    //     return task;
-    //   });
-
-    //   setTaskList(editedTaskList);
-    // }
-
     toggleTarefaCompleta: (state, action) => {
       const index = state.findIndex((todo) => todo.id === action.payload.id);
       // eslint-disable-next-line no-param-reassign
@@ -57,9 +45,9 @@ const todoSlice = createSlice({
 
 export const {
   addTarefa,
-  deletarTarefa,
+  deleteTarefa,
   editTarefa,
   toggleTarefaCompleta,
-} = todoSlice.actions;
+} = tarefaSlice.actions;
 
-export default todoSlice.reducer;
+export default tarefaSlice.reducer;

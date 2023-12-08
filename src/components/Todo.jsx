@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import usePrevious from '../hooks/customHooks';
 
 import {
-  deletarTarefa,
+  deleteTarefa,
   editTarefa,
   toggleTarefaCompleta,
-} from '../redux/todoSlice';
+} from '../redux/tarefaSlice';
 
 function Todo({ task }) {
   const myDispatch = useDispatch();
@@ -119,7 +119,7 @@ function Todo({ task }) {
         <button
           type="button"
           className="btn btn__danger"
-          onClick={() => myDispatch(deletarTarefa({ id: task.id }))}
+          onClick={() => myDispatch(deleteTarefa({ id: task.id }))}
         >
           Delete
           {' '}

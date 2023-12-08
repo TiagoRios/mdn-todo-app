@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import FILTER_MAP from '../util/filterMap';
 
 function HeadingTasks({ filter, listHeadingRef }) {
-  const tasks = useSelector((myStateStore) => myStateStore.todooo);
+  const tasks = useSelector((myStateStore) => myStateStore.tarefas);
 
   const taskList = tasks.filter(FILTER_MAP[filter]);
   const tasksNoun = taskList.length !== 1 ? 'tasks' : 'task';
